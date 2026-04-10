@@ -29,7 +29,7 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         Teacher::create($request->all());
-        return redirect()->route('home')->with('success', 'تم إضافة المعلم بنجاح!');
+        return redirect()->route('home')->with('success', 'Teacher add successfully ');
     }
 
     /**
@@ -43,24 +43,28 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        return view('teachers.edit', compact('teacher'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $teacher->update($request->all());
+
+        return redirect()->route('teachers.index')->with('success', 'successfully update');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+        $teacher->delete();
+
+        return redirect()->route('teachers.index')->with('success', 'Deleted has been success');
     }
 }

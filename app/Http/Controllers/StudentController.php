@@ -11,8 +11,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = \App\Models\Student::all(); // جلب كل الطلاب
-        return view('students.index', compact('students')); // إرسالهم لصفحة index
+        $students = \App\Models\Student::all(); 
+        return view('students.index', compact('students'));
     }
 
     /**
@@ -56,7 +56,7 @@ class StudentController extends Controller
     {
         $student = \App\Models\Student::findOrFail($id);
         $student->update($request->all());
-        return redirect()->route('students.index')->with('success', 'تم تحديث بيانات الطالب!');
+        return redirect()->route('students.index')->with('success', 'successfully update');
     }
 
     /**
