@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Models\Subject ;
 
 class TeacherController extends Controller
 {
@@ -20,18 +21,25 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        return view('teachers.create');
+        $subjects = Subject::all(); // جلب كل المواد من القاعدة
+        return view('teachers.create', compact('subjects'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Teacher::create($request->all());
-        return redirect()->route('home')->with('success', 'Teacher add successfully ');
-    }
+        {
+            // التأكد من أن البيانات تصل بشكل صحيح
+            Teacher::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'subject_id' => $request->subject_id, // هنا نربط المادة المختارة من القائمة
+            ]);
 
+            return redirect()->route('teachers.index')->with('success', 'Teacher added!');
+        }
     /**
      * Display the specified resource.
      */

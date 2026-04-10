@@ -35,9 +35,6 @@
                                 <p class="display-6">{{ $subjectsCount }}</p>
                             </div>
                         </div>
-                        <div class="mt-4">
-                            <a href="{{ route('students.create') }}" class="btn btn-success">+Add New Student</a>
-                        </div>
                     </div>
                 </div>
             </div>
