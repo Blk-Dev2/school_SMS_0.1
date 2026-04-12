@@ -24,10 +24,16 @@
         </div>
 
         <div class="mb-3">
-            <label>School level</label>
-            <input type="text" name="grade" value="{{ $student->phone }}" class="form-control" required>
+            <label>School Class</label>
+            <select name="school_class_id" class="form-control">
+                @foreach($classes as $class)
+                    <option value="{{ $class->id }}" {{ $student->school_class_id == $class->id ? 'selected' : '' }}>
+                        {{ $class->class_name }} - {{ $class->section }}
+                    </option>
+                @endforeach
+            </select>
         </div>
-
+        
         <button type="submit" class="btn btn-warning">Apply Changes</button>
         <a href="{{ route('students.index') }}" class="btn btn-secondary">Cancel</a>
     </form>

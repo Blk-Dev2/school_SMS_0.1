@@ -34,8 +34,8 @@ class TeacherController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'subject_id' => $request->subject_id, // تأكد أن هذا الاسم يطابق الـ name في الـ select
-            'subject' => '', // لتجنب الخطأ القديم مؤقتاً
+            'subject_id' => $request->subject_id, 
+         
         ]);
 
         return redirect()->route('teachers.index')->with('success', 'Teacher added successfully!');
@@ -51,10 +51,12 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Teacher $teacher)
     {
-        $teacher = Teacher::findOrFail($id);
-        return view('teachers.edit', compact('teacher'));
+        
+        $subjects = \App\Models\Subject::all();
+        
+        return view('teachers.edit', compact('teacher', 'subjects'));
     }
 
     public function update(Request $request, $id)

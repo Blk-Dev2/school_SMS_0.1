@@ -20,7 +20,13 @@
 
         <div class="mb-3">
             <label>Subject</label>
-            <input type="text" name="subject" value="{{ $teacher->subject }}" class="form-control" required>
+            <select name="subject_id" class="form-control">
+                @foreach($subjects as $subject)
+                    <option value="{{ $subject->id }}" {{ $teacher->subject_id == $subject->id ? 'selected' : '' }}>
+                        {{ $subject->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <div class="mb-3">

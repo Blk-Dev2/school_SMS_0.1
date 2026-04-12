@@ -18,8 +18,16 @@
             <input type="number" name="age" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label>School level</label>
-            <input type="text" name="grade" class="form-control" required>
+            <label>class</label>
+            <select name="school_class_id" class="form-control" required>
+                <option value="">-- Class--</option>
+                
+                @foreach($classes as $class)
+                    <option value="{{ $class->id }}">
+                        {{ $class->class_name }} - {{ $class->section }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

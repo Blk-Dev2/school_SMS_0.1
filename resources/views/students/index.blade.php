@@ -28,7 +28,7 @@
                 <td>{{ $student->name }}</td>
                 <td>{{ $student->email }}</td>
                 <td>{{ $student->age }}</td>
-                <td>{{ $student->grade }}</td>
+                <td>{{ $student->schoolClass->class_name ?? 'None' }}</td>
                 <td>
                     <a href="{{ route('students.edit', $student->id) }}" class="btn btn-sm btn-warning">Modify</a>
                     <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">

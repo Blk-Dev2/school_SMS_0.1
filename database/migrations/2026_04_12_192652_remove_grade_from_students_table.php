@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('school_classes', function (Blueprint $table) {
-            $table->id();
-            $table->string('class_name'); // class 
-            $table->string('section');    //group
-            $table->timestamps();
+        Schema::table('students', function (Blueprint $table) {
+            $table->dropColumn('grade'); // هذا السطر سيحذف العمود القديم نهائياً
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('school_classes');
+        Schema::table('students', function (Blueprint $table) {
+            //
+        });
     }
 };
