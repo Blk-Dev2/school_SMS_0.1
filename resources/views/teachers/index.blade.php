@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $teacher->name }}</td>
                 <td>{{ $teacher->email }}</td>
-                <td>{{ $teacher->subject->name ?? 'None' }}</td>
+                <td>{{ $teacher->subject->id  ?? 'None' }}</td>
                 <td>{{ $teacher->phone }}</td>
                 <td>
                     <a href="{{ route('teachers.edit', $teacher->id) }}" class="btn btn-warning btn-sm text-white">Modify</a>

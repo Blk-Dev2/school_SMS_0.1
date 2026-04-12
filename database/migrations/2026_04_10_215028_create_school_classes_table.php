@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('school_classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // اسم 
-            $table->string('code')->unique(); // رمز المادة: CS101 مثلاً
+            $table->string('class_name'); // اسم الفصل: Grade 1, Grade 2
+            $table->string('section');    // الشعبة: A, B, C
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('school_classes');
     }
 };

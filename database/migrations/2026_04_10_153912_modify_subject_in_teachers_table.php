@@ -12,7 +12,7 @@ return new class extends Migration
    public function up()
     {
         Schema::table('teachers', function (Blueprint $table) {
-            // جعل الحقل القديم nullable لكي لا يسبب خطأ
+            //
             $table->string('subject')->nullable()->change();
         });
     }

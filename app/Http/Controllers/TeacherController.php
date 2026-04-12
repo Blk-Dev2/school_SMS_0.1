@@ -12,10 +12,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::all();
+        // أضف with('subject') لضمان جلب بيانات المادة المرتبطة
+        $teachers = Teacher::with('subject')->get(); 
         return view('teachers.index', compact('teachers'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -29,17 +29,17 @@ class TeacherController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-        {
-            // التأكد من أن البيانات تصل بشكل صحيح
-            Teacher::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'subject_id' => $request->subject_id, // هنا نربط المادة المختارة من القائمة
-            ]);
+    {
+        Teacher::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'subject_id' => $request->subject_id, // تأكد أن هذا الاسم يطابق الـ name في الـ select
+            'subject' => '', // لتجنب الخطأ القديم مؤقتاً
+        ]);
 
-            return redirect()->route('teachers.index')->with('success', 'Teacher added!');
-        }
+        return redirect()->route('teachers.index')->with('success', 'Teacher added successfully!');
+    }
     /**
      * Display the specified resource.
      */

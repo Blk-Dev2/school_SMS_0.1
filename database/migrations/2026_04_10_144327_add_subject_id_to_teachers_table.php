@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('teachers', function (Blueprint $table) {
-            // إنشاء عمود يربط المعلم بالمادة
+            //
             $table->foreignId('subject_id')->nullable()->constrained('subjects')->onDelete('set null');
         });
     }

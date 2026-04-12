@@ -20,7 +20,7 @@
               <div class="mb-3">
                     <label>Choose Subject</label>
                     <select name="subject_id" class="form-control" required>
-                        <option value="">-- Select Subject --</option>
+                        <option value="">-- Choose Subject --</option>
                         @foreach($subjects as $subject)
                             <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                         @endforeach

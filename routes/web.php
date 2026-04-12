@@ -17,3 +17,6 @@ Route::resource('students', StudentController::class);
 
 use App\Http\Controllers\TeacherController;
 Route::resource('teachers', TeacherController::class);
+
+use App\Http\Controllers\SchoolClassController;
+Route::resource('school-classes', SchoolClassController::class);
