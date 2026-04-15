@@ -20,3 +20,6 @@ Route::resource('teachers', TeacherController::class);
 
 use App\Http\Controllers\SchoolClassController;
 Route::resource('school-classes', SchoolClassController::class);
+
+use App\Http\Controllers\SubjectController;
+Route::resource('subjects', SubjectController::class);

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Student; // أضف هذا في الأعلى
-use App\Models\Teacher; // أضف هذا في الأعلى
+use App\Models\Student; 
+use App\Models\Teacher; 
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,10 +26,13 @@ class HomeController extends Controller
 
     public function index()
     {
+        
         $studentsCount = \App\Models\Student::count();
         $teachersCount = \App\Models\Teacher::count();
-        $subjectsCount = 3; 
+        $subjectsCount = \App\Models\Subject::count();
+        $classesCount  = \App\Models\SchoolClass::count();
 
-        return view('home', compact('studentsCount', 'teachersCount', 'subjectsCount'));
+        
+        return view('home', compact('studentsCount', 'teachersCount', 'subjectsCount', 'classesCount'));
     }
 }

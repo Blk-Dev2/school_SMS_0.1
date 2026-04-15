@@ -1,43 +1,54 @@
+
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+        <div class="col-md-12">
+            <h2 class="mb-4 text-center">School Management Dashboard</h2>
+            
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card bg-primary text-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Total Students</h5>
+                            <h2 class="display-4">{{ $studentsCount }}</h2>
+                            <a href="{{ route('students.index') }}" class="text-white">View Details →</a>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                <div class="col-md-3">
+                    <div class="card bg-success text-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Total Teachers</h5>
+                            <h2 class="display-4">{{ $teachersCount }}</h2>
+                            <a href="{{ route('teachers.index') }}" class="text-white">View Details →</a>
                         </div>
-                    @endif
+                    </div>
+                </div>
 
-                    <div class="row text-center mt-4">
-                        <div class="col-md-4">
-                            <div class="card bg-primary text-white p-3">
-                                <h3>Students</h3>
-                                <p class="display-6">{{ $studentsCount }}</p>
-                                <a href="{{ route('students.index') }}" class="text-white mt-2 d-block">View All Students →</a>
-                            </div>
+                <div class="col-md-3">
+                    <div class="card bg-info text-white shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Subjects</h5>
+                            <h2 class="display-4">{{ $subjectsCount }}</h2>
+                            <a href="#" class="text-white">View Details →</a>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card bg-success text-white p-3">
-                                <h3>Teachers</h3>
-                                <p class="display-6">{{ $teachersCount }}</p>
-                                <a href="{{ route('teachers.index') }}" class="text-white mt-2 d-block">View All Teachers →</a>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card bg-warning text-dark p-3">
-                                <h3>Subjects</h3>
-                                <p class="display-6">{{ $subjectsCount }}</p>
-                            </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card bg-warning text-dark shadow-sm mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Classes</h5>
+                            <h2 class="display-4">{{ $classesCount }}</h2>
+                            <a href="{{ route('school-classes.index') }}" class="text-white">View Details →</a>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

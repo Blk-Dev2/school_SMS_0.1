@@ -17,73 +17,88 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+
+
+   <!-- css style -->
+    <style>
+    
+    nav.bg-dark {
+        min-width: 250px;
+        max-width: 250px;
+        background-color: #212529 !important;
+        transition: all 0.3s;
+    }
+
+    .nav-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+        padding: 10px 20px;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff !important;
+        border-radius: 5px;
+        margin: 0 10px;
+    }
+
+    .nav-link.active {
+        background-color: #0d6efd !important;
+        color: #fff !important;
+        border-radius: 5px;
+        margin: 0 10px;
+    }
+
+    
+    main {
+        flex: 1;
+        background-color: #f8f9fa;
+        min-height: 100vh;
+    }
+</style>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+    <div id="app" class="d-flex">
+        <nav class="bg-dark text-white p-3 vh-100 shadow" style="width: 250px; position: fixed;">
+            <h4 class="text-center mb-4 border-bottom pb-2">School System</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white {{ Request::is('home') ? 'bg-primary rounded' : '' }}" href="{{ url('/home') }}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white {{ Request::is('students*') ? 'bg-primary rounded' : '' }}" href="{{ route('students.index') }}">
+                         Students
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white {{ Request::is('teachers*') ? 'bg-primary rounded' : '' }}" href="{{ route('teachers.index') }}">
+                        Teachers
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white {{ Request::is('school-classes*') ? 'bg-primary rounded' : '' }}" href="{{ route('school-classes.index') }}">
+                         Classes
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="nav-link text-white {{ Request::is('subjects*') ? 'bg-primary rounded' : '' }}" href="{{ route('subjects.index') }}">
+                         Subjects
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="mt-auto pt-4 border-top">
+                <a class="nav-link text-danger" href="{{ route('logout') }}" 
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('students.index') }}">Students</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('teachers.index') }}">Teachers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('school-classes.index') }}">Class</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 w-100" style="margin-left: 260px;">
             @yield('content')
         </main>
     </div>
