@@ -10,9 +10,18 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   
+    public function index(Request $request)
     {
-        $students = \App\Models\Student::all(); 
+        $query = Student::query();
+
+        
+        if ($request->has('class_id')) {
+            $query->where('school_class_id', $request->class_id);
+        }
+
+        $students = $query->with('schoolClass')->get();
+        
         return view('students.index', compact('students'));
     }
 
@@ -32,14 +41,15 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        \App\Models\Student::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'age' => $request->age,
-            'school_class_id' => $request->school_class_id, 
+       \App\Models\Student::create([
+            'name'          => $request->name,
+            'date_of_birth' => $request->date_of_birth,
+            'address'       => $request->address,
+            'parent_phone'  => $request->parent_phone,
+            'school_class_id' => $request->school_class_id,
+            
         ]);
-
-        return redirect()->route('students.index')->with('success', 'Student added and assigned to class!');
+        return redirect()->route('students.index')->with('success', 'Student added!');
     }
 
     /**

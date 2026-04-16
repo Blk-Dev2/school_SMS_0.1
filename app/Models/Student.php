@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected $fillable = ['name', 'email', 'age','school_class_id'];
+
+    protected $fillable = [
+        'name', 
+        'date_of_birth', 
+        'address', 
+        'parent_phone', 
+        'school_class_id'
+    ];
+
 
     public function schoolClass()
     {
-        return $this->belongsTo(SchoolClass::class, 'school_class_id');
+       return $this->belongsTo(SchoolClass::class, 'school_class_id');
     }
 }

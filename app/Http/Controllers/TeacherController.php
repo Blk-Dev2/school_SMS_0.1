@@ -12,7 +12,7 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        // أضف with('subject') لضمان جلب بيانات المادة المرتبطة
+        
         $teachers = Teacher::with('subject')->get(); 
         return view('teachers.index', compact('teachers'));
     }
@@ -21,25 +21,42 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        $subjects = Subject::all(); // جلب كل المواد من القاعدة
-        return view('teachers.create', compact('subjects'));
+        
+        $subjects = \App\Models\Subject::all();
+        
+        
+        $allClasses = \App\Models\SchoolClass::all(); 
+        
+        return view('teachers.create', compact('subjects', 'allClasses'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        Teacher::create([
+        
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:teachers',
+            'subject_id' => 'required', 
+        ]);
+
+        
+        $teacher = \App\Models\Teacher::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'subject_id' => $request->subject_id, 
-         
         ]);
+
+        
+        if ($request->has('class_ids')) {
+            $teacher->schoolClasses()->attach($request->class_ids);
+        }
 
         return redirect()->route('teachers.index')->with('success', 'Teacher added successfully!');
     }
+
     /**
      * Display the specified resource.
      */
@@ -51,21 +68,39 @@ class TeacherController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
+        $teacher = \App\Models\Teacher::findOrFail($id);
+        
         
         $subjects = \App\Models\Subject::all();
-        
-        return view('teachers.edit', compact('teacher', 'subjects'));
+        $allClasses = \App\Models\SchoolClass::all(); 
+
+        return view('teachers.edit', compact('teacher', 'subjects', 'allClasses'));
     }
 
     public function update(Request $request, $id)
     {
-        $teacher = Teacher::findOrFail($id);
-        $teacher->update($request->all());
+        $teacher = \App\Models\Teacher::findOrFail($id);
 
-        return redirect()->route('teachers.index')->with('success', 'successfully update');
+        
+        $teacher->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'subject_id' => $request->subject_id,
+        ]);
+
+        
+        if ($request->has('class_ids')) {
+            $teacher->schoolClasses()->sync($request->class_ids);
+        } else {
+            $teacher->schoolClasses()->detach(); 
+        }
+
+        return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.
